@@ -1,31 +1,19 @@
 // const { chromium } = require("playwright");
-
-let chrome = {};
-let puppeteer;
-let options;
+const puppeteer = require("puppeteer");
 const cnaScrap = async (id) => {
-  if (process.env.NODE_ENV === "production") {
-    chrome = require("@sparticuz/chromium");
-    puppeteer = require("puppeteer-core");
-  } else {
-    puppeteer = require("puppeteer");
-  }
+  const browser = await puppeteer.launch({
+    args: [
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+      "--single-process",
+      "--no-zygote",
+    ],
+    executablePath:
+      process.env.NODE_ENV === "production"
+        ? process.env.PUPPETEER_EXECUTABLE_PATH
+        : puppeteer.executablePath(),
+  });
   try {
-    if (process.env.NODE_ENV === "production") {
-      options = {
-        headless: "new",
-        args: ["--hide-scrollbars", "--disable-web-security"],
-        ignoreDefaultArgs: ["--disable-extensions"],
-        executablePath: await chrome.executablePath,
-        ignoreHTTPSErrors: true,
-      };
-    } else {
-      options = {
-        headless: "new",
-      };
-    }
-
-    let browser = await puppeteer.launch(options);
     let page = await browser.newPage();
     // await page.setRequestInterception(true);
     // page.on("request", (request) => {
