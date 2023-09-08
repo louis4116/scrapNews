@@ -11,22 +11,19 @@ if ((process.env.NODE_ENV = "production")) {
 // const { chromium } = require("playwright");
 const ltnMilitary = async (item) => {
   let browser;
-  const options = {
-    headless: true, // 无头模式
-    args: ["--hide-scrollbars", "--disable-web-security"],
-  };
-  // if ((process.env.NODE_ENV = "production")) {
-  //   options = {
-  //     headless: "new",
-  //     args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
-  //     ignoreDefaultArgs: ["--disable-extensions"],
-  //     executablePath: await chrome.executablePath(),
-  //   };
-  // } else {
-  //   options = {
-  //     headless: "new",
-  //   };
-  // }
+  let options;
+  if ((process.env.NODE_ENV = "production")) {
+    options = {
+      headless: "new",
+      args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+      ignoreDefaultArgs: ["--disable-extensions"],
+      executablePath: await chrome.executablePath(),
+    };
+  } else {
+    options = {
+      headless: "new",
+    };
+  }
   browser = await puppeteer.launch(options);
   let page = await browser.newPage();
   // await page.setRequestInterception(true);

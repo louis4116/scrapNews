@@ -12,10 +12,7 @@ if ((process.env.NODE_ENV = "production")) {
 }
 const udnScrapy = async (item) => {
   let browser;
-  const options = {
-    headless: true, // 无头模式
-    args: ["--hide-scrollbars", "--disable-web-security"],
-  };
+  let options;
   if ((process.env.NODE_ENV = "production")) {
     options = {
       headless: "new",

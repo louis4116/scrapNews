@@ -11,10 +11,11 @@ if ((process.env.NODE_ENV = "production")) {
 console.log("test");
 const cnaScrap = async (id) => {
   let browser;
-  const options = {
-    headless: true, // 无头模式
-    args: ["--hide-scrollbars", "--disable-web-security"],
-  };
+  let options;
+  // const options = {
+  //   headless: true, // 无头模式
+  //   args: ["--hide-scrollbars", "--disable-web-security"],
+  // };
   try {
     if ((process.env.NODE_ENV = "production")) {
       options = {
