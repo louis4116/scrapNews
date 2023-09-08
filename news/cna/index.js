@@ -2,27 +2,22 @@
 
 let chrome = {};
 let puppeteer;
-if ((process.env.NODE_ENV = "production")) {
-  chrome = require("@sparticuz/chromium");
+if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
+  chrome = require("chrome-aws-lambda");
   puppeteer = require("puppeteer-core");
 } else {
   puppeteer = require("puppeteer");
 }
 console.log("test");
 const cnaScrap = async (id) => {
-  let browser;
   let options;
-  // const options = {
-  //   headless: true, // 无头模式
-  //   args: ["--hide-scrollbars", "--disable-web-security"],
-  // };
   try {
-    if ((process.env.NODE_ENV = "production")) {
+    if (process.env.AWS_LAMBDA_FUNCTION_VERSION) {
       options = {
         headless: "new",
         args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
         ignoreDefaultArgs: ["--disable-extensions"],
-        executablePath: await chrome.executablePath(),
+        executablePath: await chrome.executablePath,
       };
     } else {
       options = {
@@ -30,7 +25,7 @@ const cnaScrap = async (id) => {
       };
     }
 
-    browser = await puppeteer.launch(options);
+    let browser = await puppeteer.launch(options);
     let page = await browser.newPage();
     // await page.setRequestInterception(true);
     // page.on("request", (request) => {

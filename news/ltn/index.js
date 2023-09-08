@@ -2,7 +2,7 @@ let chrome = {};
 let puppeteer;
 
 if ((process.env.NODE_ENV = "production")) {
-  chrome = require("@sparticuz/chromium");
+  chrome = require("chrome-aws-lambda");
   puppeteer = require("puppeteer-core");
 } else {
   puppeteer = require("puppeteer");
@@ -10,14 +10,13 @@ if ((process.env.NODE_ENV = "production")) {
 // const playwright = require("playwright-aws-lambda");
 // const { chromium } = require("playwright");
 const ltnScrap = async (item) => {
-  let browser;
   let options;
   if ((process.env.NODE_ENV = "production")) {
     options = {
       headless: "new",
       args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
       ignoreDefaultArgs: ["--disable-extensions"],
-      executablePath: await chrome.executablePath(),
+      executablePath: await chrome.executablePath,
     };
   } else {
     options = {
@@ -25,7 +24,7 @@ const ltnScrap = async (item) => {
     };
   }
 
-  browser = await puppeteer.launch(options);
+  let browser = await puppeteer.launch(options);
   let page = await browser.newPage();
   // await page.setRequestInterception(true);
   // page.on("request", (request) => {
