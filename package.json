@@ -10,7 +10,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx playwright install",
+    "build": "next build &&npx playwright install",
     "start": "node index.js"
   },
   "author": "",
