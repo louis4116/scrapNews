@@ -1,13 +1,13 @@
-// let chrome = {};
-// let puppeteer;
+let chrome = {};
+let puppeteer;
 
-// if ((process.env.NODE_ENV = "production")) {
-//   chrome = require("@sparticuz/chromium");
-//   puppeteer = require("puppeteer-core");
-// } else {
-//   puppeteer = require("puppeteer");
-// }
-const playwright = require("playwright-aws-lambda");
+if ((process.env.NODE_ENV = "production")) {
+  chrome = require("@sparticuz/chromium");
+  puppeteer = require("puppeteer-core");
+} else {
+  puppeteer = require("puppeteer");
+}
+// const playwright = require("playwright-aws-lambda");
 // const { chromium } = require("playwright");
 const ltnScrap = async (item) => {
   let browser;
@@ -15,20 +15,20 @@ const ltnScrap = async (item) => {
     headless: true, // 无头模式
     args: ["--hide-scrollbars", "--disable-web-security"],
   };
-  // if ((process.env.NODE_ENV = "production")) {
-  //   options = {
-  //     headless: "new",
-  //     args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
-  //     ignoreDefaultArgs: ["--disable-extensions"],
-  //     executablePath: await chrome.executablePath(),
-  //   };
-  // } else {
-  //   options = {
-  //     headless: "new",
-  //   };
-  // }
+  if ((process.env.NODE_ENV = "production")) {
+    options = {
+      headless: "new",
+      args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+      ignoreDefaultArgs: ["--disable-extensions"],
+      executablePath: await chrome.executablePath(),
+    };
+  } else {
+    options = {
+      headless: "new",
+    };
+  }
 
-  browser = await playwright.launchChromium(options);
+  browser = await puppeteer.launch(options);
   let page = await browser.newPage();
   // await page.setRequestInterception(true);
   // page.on("request", (request) => {

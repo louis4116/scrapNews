@@ -1,13 +1,13 @@
-// let chrome = {};
-// let puppeteer;
+let chrome = {};
+let puppeteer;
 
-// if ((process.env.NODE_ENV = "production")) {
-//   chrome = require("@sparticuz/chromium");
-//   puppeteer = require("puppeteer-core");
-// } else {
-//   puppeteer = require("puppeteer");
-// }
-const playwright = require("playwright-aws-lambda");
+if ((process.env.NODE_ENV = "production")) {
+  chrome = require("@sparticuz/chromium");
+  puppeteer = require("puppeteer-core");
+} else {
+  puppeteer = require("puppeteer");
+}
+// const playwright = require("playwright-aws-lambda");
 // const { chromium } = require("playwright");
 const ltnMilitary = async (item) => {
   let browser;
@@ -27,7 +27,7 @@ const ltnMilitary = async (item) => {
   //     headless: "new",
   //   };
   // }
-  browser = await playwright.launchChromium(options);
+  browser = await puppeteer.launch(options);
   let page = await browser.newPage();
   // await page.setRequestInterception(true);
   // page.on("request", (request) => {
