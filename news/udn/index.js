@@ -1,5 +1,5 @@
 const autoScroll = require("../../util/autoScroll");
-const playwright = reuire("playwright-aws-lambda");
+const playwright = require("playwright-aws-lambda");
 // const { chromium } = require("playwright");
 // let chrome = {};
 // let puppeteer;

@@ -7,7 +7,7 @@
 // } else {
 //   puppeteer = require("puppeteer");
 // }
-const playwright = reuire("playwright-aws-lambda");
+const playwright = require("playwright-aws-lambda");
 // const { chromium } = require("playwright");
 const ltnScrap = async (item) => {
   let browser;
