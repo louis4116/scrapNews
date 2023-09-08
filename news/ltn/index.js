@@ -7,7 +7,8 @@
 // } else {
 //   puppeteer = require("puppeteer");
 // }
-const { chromium } = require("playwright");
+import * as playwright from "playwright-aws-lambda";
+// const { chromium } = require("playwright");
 const ltnScrap = async (item) => {
   let browser;
   const options = {
@@ -27,7 +28,7 @@ const ltnScrap = async (item) => {
   //   };
   // }
 
-  browser = await chromium.launch(options);
+  browser = await playwright.launchChromium(options);
   let page = await browser.newPage();
   // await page.setRequestInterception(true);
   // page.on("request", (request) => {

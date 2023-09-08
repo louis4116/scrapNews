@@ -1,5 +1,6 @@
 const autoScroll = require("../../util/autoScroll");
-const { chromium } = require("playwright");
+import * as playwright from "playwright-aws-lambda";
+// const { chromium } = require("playwright");
 // let chrome = {};
 // let puppeteer;
 // console.log("test");
@@ -27,7 +28,7 @@ const udnScrapy = async (item) => {
   //     headless: "new",
   //   };
   // }
-  browser = await chromium.launch(options);
+  browser = await playwright.launchChromium(options);
   let page = await browser.newPage();
   // await page.setRequestInterception(true);
   // page.on("request", (request) => {

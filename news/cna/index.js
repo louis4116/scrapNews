@@ -1,5 +1,5 @@
-const { chromium } = require("playwright");
-
+// const { chromium } = require("playwright");
+import * as playwright from "playwright-aws-lambda";
 // if ((process.env.NODE_ENV = "production")) {
 //   chrome = require("@sparticuz/chromium");
 //   puppeteer = require("puppeteer-core");
@@ -27,7 +27,7 @@ const cnaScrap = async (id) => {
     //   };
     // }
 
-    browser = await chromium.launch(options);
+    browser = await playwright.launchChromium(options);
     let page = await browser.newPage();
     // await page.setRequestInterception(true);
     // page.on("request", (request) => {
