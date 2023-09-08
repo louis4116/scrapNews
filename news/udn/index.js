@@ -1,7 +1,7 @@
 const autoScroll = require("../../util/autoScroll");
 let chrome = {};
 let puppeteer;
-
+console.log("test");
 if ((process.env.NODE_ENV = "production")) {
   chrome = require("chrome-aws-lambda ");
   puppeteer = require("puppeteer-core");
