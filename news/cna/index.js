@@ -6,6 +6,7 @@ const { chromium } = require("playwright");
 // } else {
 //   puppeteer = require("puppeteer");
 // }
+console.log("test");
 const cnaScrap = async (id) => {
   let browser;
   const options = {
