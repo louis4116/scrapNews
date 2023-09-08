@@ -1,8 +1,8 @@
 const autoScroll = require("../../util/autoScroll");
 const { chromium } = require("playwright");
-let chrome = {};
-let puppeteer;
-console.log("test");
+// let chrome = {};
+// let puppeteer;
+// console.log("test");
 // if ((process.env.NODE_ENV = "production")) {
 //   chrome = require("@sparticuz/chromium");
 //   puppeteer = require("puppeteer-core");

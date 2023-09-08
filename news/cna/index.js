@@ -26,7 +26,7 @@ const cnaScrap = async (id) => {
     //   };
     // }
 
-    browser = await puppeteer.launch(options);
+    browser = await chromium.launch(options);
     let page = await browser.newPage();
     // await page.setRequestInterception(true);
     // page.on("request", (request) => {
