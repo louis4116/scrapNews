@@ -18,6 +18,8 @@ const cnaScrap = async (id) => {
         args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
         ignoreDefaultArgs: ["--disable-extensions"],
         executablePath: await chrome.executablePath,
+        ignoreHTTPSErrors: true,
+        defaultViewport: chrome.defaultViewport,
       };
     } else {
       options = {
