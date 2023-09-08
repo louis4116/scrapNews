@@ -1,5 +1,5 @@
 // const { chromium } = require("playwright");
-import * as playwright from "playwright-aws-lambda";
+const playwright = reuire("playwright-aws-lambda");
 // if ((process.env.NODE_ENV = "production")) {
 //   chrome = require("@sparticuz/chromium");
 //   puppeteer = require("puppeteer-core");

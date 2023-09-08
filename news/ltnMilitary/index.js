@@ -7,7 +7,7 @@
 // } else {
 //   puppeteer = require("puppeteer");
 // }
-import * as playwright from "playwright-aws-lambda";
+const playwright = reuire("playwright-aws-lambda");
 // const { chromium } = require("playwright");
 const ltnMilitary = async (item) => {
   let browser;
