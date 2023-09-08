@@ -15,7 +15,7 @@ const cnaScrap = async (id) => {
     if (process.env.NODE_ENV === "production") {
       options = {
         headless: "new",
-        args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+        args: ["--hide-scrollbars", "--disable-web-security"],
         ignoreDefaultArgs: ["--disable-extensions"],
         executablePath: await chrome.executablePath(),
         ignoreHTTPSErrors: true,
