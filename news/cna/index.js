@@ -2,6 +2,7 @@
 const puppeteer = require("puppeteer");
 const cnaScrap = async (id) => {
   const browser = await puppeteer.launch({
+    headless: "news",
     args: [
       "--disable-setuid-sandbox",
       "--no-sandbox",

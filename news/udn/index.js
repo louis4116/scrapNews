@@ -3,6 +3,7 @@ const puppeteer = require("puppeteer");
 
 const udnScrapy = async (item) => {
   const browser = await puppeteer.launch({
+    headless: "news",
     args: [
       "--disable-setuid-sandbox",
       "--no-sandbox",
