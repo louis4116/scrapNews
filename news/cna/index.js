@@ -2,14 +2,14 @@
 
 let chrome = {};
 let puppeteer;
-if (process.env.NODE_ENV === "production") {
-  chrome = require("@sparticuz/chromium");
-  puppeteer = require("puppeteer-core");
-} else {
-  puppeteer = require("puppeteer");
-}
+let options;
 const cnaScrap = async (id) => {
-  let options;
+  if (process.env.NODE_ENV === "production") {
+    chrome = require("@sparticuz/chromium");
+    puppeteer = require("puppeteer-core");
+  } else {
+    puppeteer = require("puppeteer");
+  }
   try {
     if (process.env.NODE_ENV === "production") {
       options = {
