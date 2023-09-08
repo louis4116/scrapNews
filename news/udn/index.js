@@ -3,7 +3,7 @@ let chrome = {};
 let puppeteer;
 
 if ((process.env.NODE_ENV = "production")) {
-  chrome = require("@sparticuz/chromium");
+  chrome = require("chrome-aws-lambda ");
   puppeteer = require("puppeteer-core");
 } else {
   puppeteer = require("puppeteer");
@@ -14,7 +14,7 @@ const udnScrapy = async (item) => {
     options = {
       headless: "new",
       args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
-      executablePath: await chrome.executablePath(),
+      executablePath: await chrome.executablePath,
     };
   } else {
     options = {
