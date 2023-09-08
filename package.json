@@ -15,5 +15,8 @@
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "playwright": "^1.37.1"
+  }
 }
