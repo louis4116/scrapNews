@@ -14,6 +14,7 @@ const cnaScrap = async (id) => {
       options = {
         headless: "new",
         args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+        ignoreDefaultArgs: ["--disable-extensions"],
         executablePath: await chrome.executablePath(),
       };
     } else {
