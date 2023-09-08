@@ -1,16 +1,14 @@
 let chrome = {};
 let puppeteer;
+let options;
 
-if ((process.env.NODE_ENV = "production")) {
-  chrome = require("@sparticuz/chromium");
-  puppeteer = require("puppeteer-core");
-} else {
-  puppeteer = require("puppeteer");
-}
-// const playwright = require("playwright-aws-lambda");
-// const { chromium } = require("playwright");
 const ltnMilitary = async (item) => {
-  let options;
+  if ((process.env.NODE_ENV = "production")) {
+    chrome = require("@sparticuz/chromium");
+    puppeteer = require("puppeteer-core");
+  } else {
+    puppeteer = require("puppeteer");
+  }
   if ((process.env.NODE_ENV = "production")) {
     options = {
       headless: "new",

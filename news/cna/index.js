@@ -8,7 +8,6 @@ if (process.env.NODE_ENV === "production") {
 } else {
   puppeteer = require("puppeteer");
 }
-console.log("test");
 const cnaScrap = async (id) => {
   let options;
   try {
