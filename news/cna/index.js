@@ -3,13 +3,8 @@ const puppeteer = require("puppeteer");
 const cnaScrap = async (id) => {
   try {
     const browser = await puppeteer.launch({
-      headless: "news",
-      args: [
-        "--disable-setuid-sandbox",
-        "--no-sandbox",
-        "--single-process",
-        "--no-zygote",
-      ],
+      headless: "new",
+      args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
       executablePath:
         process.env.NODE_ENV === "production"
           ? process.env.PUPPETEER_EXECUTABLE_PATH
@@ -27,10 +22,10 @@ const cnaScrap = async (id) => {
     //     request.abort();
     //   else request.continue();
     // });
-    await page.goto(`https://www.cna.com.tw/list/${id}.aspx`);
-    // , {
-    //   waitUntil: "domcontentloaded",
-    // }
+    await page.goto(`https://www.cna.com.tw/list/${id}.aspx`, {
+      waitUntil: "domcontentloaded",
+    });
+
     let count = 0;
     let maxCount = 2;
     if (id !== "aall") {
@@ -72,13 +67,13 @@ const cnaScrap = async (id) => {
 
       return data;
     });
-    // await page.waitForFunction(
-    //   async (result) => {
-    //     return result && result.length >= 20;
-    //   },
-    //   {},
-    //   result
-    // );
+    await page.waitForFunction(
+      async (result) => {
+        return result && result.length >= 20;
+      },
+      {},
+      result
+    );
     await browser.close();
     return result;
   } catch (e) {

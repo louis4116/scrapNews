@@ -2,13 +2,8 @@ const puppeteer = require("puppeteer");
 const ltnMilitary = async (item) => {
   try {
     const browser = await puppeteer.launch({
-      headless: "news",
-      args: [
-        "--disable-setuid-sandbox",
-        "--no-sandbox",
-        "--single-process",
-        "--no-zygote",
-      ],
+      headless: "new",
+      args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
       executablePath:
         process.env.NODE_ENV === "production"
           ? process.env.PUPPETEER_EXECUTABLE_PATH
@@ -16,16 +11,16 @@ const ltnMilitary = async (item) => {
     });
 
     let page = await browser.newPage();
-    // await page.setRequestInterception(true);
-    // page.on("request", (request) => {
-    //   if (
-    //     request.resourceType() === "image" ||
-    //     request.resourceType() === "stylesheet" ||
-    //     request.resourceType() === "font"
-    //   )
-    //     request.abort();
-    //   else request.continue();
-    // });
+    await page.setRequestInterception(true);
+    page.on("request", (request) => {
+      if (
+        request.resourceType() === "image" ||
+        request.resourceType() === "stylesheet" ||
+        request.resourceType() === "font"
+      )
+        request.abort();
+      else request.continue();
+    });
     await page.goto(`https://def.ltn.com.tw/${item}`, {
       waitUntil: "domcontentloaded",
     });
