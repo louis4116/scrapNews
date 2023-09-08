@@ -1,29 +1,32 @@
-let chrome = {};
-let puppeteer;
+const { chromium } = require("playwright");
 
-if ((process.env.NODE_ENV = "production")) {
-  chrome = require("@sparticuz/chromium");
-  puppeteer = require("puppeteer-core");
-} else {
-  puppeteer = require("puppeteer");
-}
+// if ((process.env.NODE_ENV = "production")) {
+//   chrome = require("@sparticuz/chromium");
+//   puppeteer = require("puppeteer-core");
+// } else {
+//   puppeteer = require("puppeteer");
+// }
 const cnaScrap = async (id) => {
-  let options = {};
+  let browser;
+  const options = {
+    headless: true, // 无头模式
+    args: ["--hide-scrollbars", "--disable-web-security"],
+  };
   try {
-    if ((process.env.NODE_ENV = "production")) {
-      options = {
-        headless: "new",
-        args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
-        ignoreDefaultArgs: ["--disable-extensions"],
-        executablePath: await chrome.executablePath(),
-      };
-    } else {
-      options = {
-        headless: "new",
-      };
-    }
+    // if ((process.env.NODE_ENV = "production")) {
+    //   options = {
+    //     headless: "new",
+    //     args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+    //     ignoreDefaultArgs: ["--disable-extensions"],
+    //     executablePath: await chrome.executablePath(),
+    //   };
+    // } else {
+    //   options = {
+    //     headless: "new",
+    //   };
+    // }
 
-    let browser = await puppeteer.launch(options);
+    browser = await puppeteer.launch(options);
     let page = await browser.newPage();
     // await page.setRequestInterception(true);
     // page.on("request", (request) => {

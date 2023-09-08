@@ -1,27 +1,32 @@
-let chrome = {};
-let puppeteer;
+// let chrome = {};
+// let puppeteer;
 
-if ((process.env.NODE_ENV = "production")) {
-  chrome = require("@sparticuz/chromium");
-  puppeteer = require("puppeteer-core");
-} else {
-  puppeteer = require("puppeteer");
-}
+// if ((process.env.NODE_ENV = "production")) {
+//   chrome = require("@sparticuz/chromium");
+//   puppeteer = require("puppeteer-core");
+// } else {
+//   puppeteer = require("puppeteer");
+// }
+const { chromium } = require("playwright");
 const ltnMilitary = async (item) => {
-  let options = {};
-  if ((process.env.NODE_ENV = "production")) {
-    options = {
-      headless: "new",
-      args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
-      ignoreDefaultArgs: ["--disable-extensions"],
-      executablePath: await chrome.executablePath(),
-    };
-  } else {
-    options = {
-      headless: "new",
-    };
-  }
-  let browser = await puppeteer.launch(options);
+  let browser;
+  const options = {
+    headless: true, // 无头模式
+    args: ["--hide-scrollbars", "--disable-web-security"],
+  };
+  // if ((process.env.NODE_ENV = "production")) {
+  //   options = {
+  //     headless: "new",
+  //     args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
+  //     ignoreDefaultArgs: ["--disable-extensions"],
+  //     executablePath: await chrome.executablePath(),
+  //   };
+  // } else {
+  //   options = {
+  //     headless: "new",
+  //   };
+  // }
+  browser = await chromium.launch(options);
   let page = await browser.newPage();
   // await page.setRequestInterception(true);
   // page.on("request", (request) => {
