@@ -14,7 +14,7 @@ const ltnScrap = async (item) => {
     options = {
       headless: "new",
       args: [...chrome.args, "--hide-scrollbars", "--disable-web-security"],
-      executablePath: await chrome.executablePath,
+      executablePath: await chrome.executablePath(),
     };
   } else {
     options = {
