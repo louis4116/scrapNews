@@ -5,7 +5,7 @@ const autoScroll = require("../../util/autoScroll");
 const ltnScrap = async (item) => {
   try {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: "new",
       args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
       executablePath: puppeteer.executablePath(),
     });
