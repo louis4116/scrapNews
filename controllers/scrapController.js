@@ -17,7 +17,6 @@ const handleScrapNews = async (req, res, category, news) => {
       status: "success",
       length: data.length,
       data,
-      log: console.log(data),
     });
   } catch (err) {
     res.status(400).json({
