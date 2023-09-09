@@ -1,11 +1,11 @@
 const puppeteer = require("puppeteer");
 const axios = require("axios");
 const cheerio = require("cheerio");
-
+const autoScroll = require("../../util/autoScroll");
 const ltnScrap = async (item) => {
   try {
     const browser = await puppeteer.launch({
-      headless: "new",
+      headless: false,
       args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
       executablePath:
         process.env.NODE_ENV === "production"
@@ -24,7 +24,7 @@ const ltnScrap = async (item) => {
       else request.continue();
     });
     await page.goto(`https://news.ltn.com.tw/list/breakingnews/${item}`);
-    // await autoScroll({ page, dis: 3000, max: 3 });
+    await autoScroll({ page, dis: 3000, max: 3 });
     const temp = await page.content();
     const $ = cheerio.load(temp);
     let data = [];
@@ -56,14 +56,14 @@ const ltnScrap = async (item) => {
     //   return data;
     // });
     // await page.waitForFunction(
-    //   async (result) => {
+    //   (result) => {
     //     return result && result.length >= 20;
     //   },
     //   {},
     //   result
     // );
     // await browser.close();
-    if (data.length > 19) return data;
+    return data;
   } catch (e) {
     return e;
   }
