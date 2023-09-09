@@ -59,7 +59,7 @@ const ltnScrap = async (item) => {
     //   {},
     //   result
     // );
-    // await browser.close();
+    await browser.close();
     if (data.length === 0) {
       return (data = "空的");
     }
