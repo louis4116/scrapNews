@@ -7,7 +7,10 @@ const ltnScrap = async (item) => {
     const browser = await puppeteer.launch({
       headless: false,
       args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
-      executablePath: puppeteer.executablePath(),
+      executablePath:
+        process.env.NODE_ENV === "production"
+          ? process.env.PUPPETEER_EXECUTABLE_PATH
+          : puppeteer.executablePath(),
     });
     let page = await browser.newPage();
     await page.setRequestInterception(true);
