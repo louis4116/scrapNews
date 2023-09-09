@@ -26,7 +26,7 @@ const ltnScrap = async (item) => {
     await page.goto(`https://news.ltn.com.tw/list/breakingnews/${item}`);
     // await autoScroll({ page, dis: 3000, max: 3 });
     const temp = await page.content();
-    const $ = await cheerio.load(temp);
+    const $ = cheerio.load(temp);
     let data = [];
     $(".list li").each((i, el) => {
       data.push({
@@ -63,7 +63,7 @@ const ltnScrap = async (item) => {
     //   result
     // );
     await browser.close();
-    return data;
+    if (data.length > 19) return data;
   } catch (e) {
     return e;
   }
