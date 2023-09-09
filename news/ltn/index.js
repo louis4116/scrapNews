@@ -25,8 +25,8 @@ const ltnScrap = async (item) => {
     });
     await page.goto(`https://news.ltn.com.tw/list/breakingnews/${item}`);
     await autoScroll({ page, dis: 3000, max: 3 });
-    const temp = await page.content();
-    const $ = cheerio.load(temp);
+    // const temp = await page.content();
+    const $ = cheerio.load(await page.content());
     let data = [];
     $(".list li").each((i, el) => {
       data.push({
