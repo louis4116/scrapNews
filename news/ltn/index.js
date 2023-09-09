@@ -61,7 +61,7 @@ const ltnScrap = async (item) => {
     // );
     // await browser.close();
     if (data.length === 0) {
-      return console.log(data);
+      return (data = "空的");
     }
     return data;
   } catch (e) {
