@@ -1,4 +1,5 @@
-const puppeteer = require("puppeteer");
+const puppeteer = require("puppeteer-core");
+const chrome = require("@sparticuz/chromium");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const autoScroll = require("../../util/autoScroll");
@@ -7,7 +8,7 @@ const ltnScrap = async (item) => {
     const browser = await puppeteer.launch({
       headless: "new",
       args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
-      executablePath: puppeteer.executablePath(),
+      executablePath: chrome.executablePath(),
     });
     let page = await browser.newPage();
     await page.setRequestInterception(true);
