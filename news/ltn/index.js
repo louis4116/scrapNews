@@ -8,7 +8,7 @@ const ltnScrap = async (item) => {
     const browser = await puppeteer.launch({
       headless: "new",
       args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
-      executablePath: chrome.executablePath(),
+      executablePath: await chrome.executablePath(),
     });
     let page = await browser.newPage();
     await page.setRequestInterception(true);
@@ -61,9 +61,6 @@ const ltnScrap = async (item) => {
     //   result
     // );
     await browser.close();
-    if (data.length === 0) {
-      return (data = "空的");
-    }
     return data;
   } catch (e) {
     return e;
