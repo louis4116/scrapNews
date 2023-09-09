@@ -5,7 +5,7 @@ const cheerio = require("cheerio");
 const ltnScrap = async (item) => {
   try {
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: "new",
       args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
       executablePath:
         process.env.NODE_ENV === "production"
