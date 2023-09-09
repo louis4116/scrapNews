@@ -63,7 +63,9 @@ const ltnScrap = async (item) => {
     //   result
     // );
     // await browser.close();
-    return data;
+    if (data.length >= 20) {
+      return data;
+    }
   } catch (e) {
     return e;
   }
