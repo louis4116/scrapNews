@@ -1,30 +1,32 @@
-const puppeteer = require("puppeteer-core");
-const chrome = require("@sparticuz/chromium");
+const puppeteer = require("puppeteer");
 const axios = require("axios");
 const cheerio = require("cheerio");
-const autoScroll = require("../../util/autoScroll");
+// const autoScroll = require("../../util/autoScroll");
 const ltnScrap = async (item) => {
   try {
-    const browser = await puppeteer.launch({
-      headless: "new",
-      args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
-      executablePath: await chrome.executablePath(),
-    });
-    let page = await browser.newPage();
-    await page.setRequestInterception(true);
-    page.on("request", (request) => {
-      if (
-        request.resourceType() === "image" ||
-        request.resourceType() === "stylesheet" ||
-        request.resourceType() === "font"
-      )
-        request.abort();
-      else request.continue();
-    });
-    await page.goto(`https://news.ltn.com.tw/list/breakingnews/${item}`);
-    await autoScroll({ page, dis: 3000, max: 3 });
+    // const browser = await puppeteer.launch({
+    //   headless: false,
+    //   args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
+    //   executablePath: puppeteer.executablePath(),
+    // });
+    // let page = await browser.newPage();
+    // await page.setRequestInterception(true);
+    // page.on("request", (request) => {
+    //   if (
+    //     request.resourceType() === "image" ||
+    //     request.resourceType() === "stylesheet" ||
+    //     request.resourceType() === "font"
+    //   )
+    //     request.abort();
+    //   else request.continue();
+    // });
+    // await page.goto(`https://news.ltn.com.tw/list/breakingnews/${item}`);
+    // await autoScroll({ page, dis: 3000, max: 3 });
     // const temp = await page.content();
-    const $ = cheerio.load(await page.content());
+    const page = await axios.get(
+      `https://news.ltn.com.tw/list/breakingnews/${item}`
+    );
+    const $ = cheerio.load(page.data);
     let data = [];
     $(".list li").each((i, el) => {
       data.push({
@@ -61,7 +63,8 @@ const ltnScrap = async (item) => {
     //   result
     // );
     // await browser.close();
-    return data.length;
+
+    return data;
   } catch (e) {
     return e;
   }

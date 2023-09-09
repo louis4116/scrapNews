@@ -24,8 +24,7 @@ const cnaScrap = async (id) => {
     //     request.abort();
     //   else request.continue();
     // });
-    const response = await axios.get(`https://www.cna.com.tw/list/${id}.aspx`);
-    const $ = cheerio.load(response.data);
+
     // let count = 0;
     // let maxCount = 2;
     // if (id !== "aall") {
@@ -36,23 +35,22 @@ const cnaScrap = async (id) => {
     //     count++;
     //   }
     // }
-
+    const page = await axios.get(`https://www.cna.com.tw/list/${id}.aspx`);
+    const $ = cheerio.load(page.data);
     let data = [];
-
     $(".mainList li").each((el, i) => {
       data.push({
         source: "cna",
         title: $(i).find(".listInfo h2 span").text(),
-        // newsItem[i].querySelector(".listInfo h2 span").textContent,
         date: $(i).find(".date").text(),
-        // newsItem[i].querySelector(".listInfo div").textContent,
         url: $(i).find("a").attr("href"),
-        // newsItem[i].querySelector("a").getAttribute("href"),
         img: $(i).find(".wrap img").attr("data-src") || "",
-        // newsItem[i]?.querySelector(".wrap img")?.getAttribute("src") || "",
       });
     });
-
+    // newsItem[i].querySelector(".listInfo h2 span").textContent,
+    // newsItem[i].querySelector(".listInfo div").textContent,
+    // newsItem[i].querySelector("a").getAttribute("href"),
+    // newsItem[i]?.querySelector(".wrap img")?.getAttribute("src") || "",
     // await page.waitForFunction(
     //   async (result) => {
     //     return result && result.length >= 20;
