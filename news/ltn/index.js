@@ -1,4 +1,6 @@
 const puppeteer = require("puppeteer");
+const axios = require("axios");
+const cheerio = require("cheerio");
 
 const ltnScrap = async (item) => {
   try {

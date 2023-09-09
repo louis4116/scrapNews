@@ -1,17 +1,19 @@
 // const { chromium } = require("playwright");
 const puppeteer = require("puppeteer");
+const axios = require("axios");
+const cheerio = require("cheerio");
 const cnaScrap = async (id) => {
   try {
-    const browser = await puppeteer.launch({
-      headless: "new",
-      args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
-      executablePath:
-        process.env.NODE_ENV === "production"
-          ? process.env.PUPPETEER_EXECUTABLE_PATH
-          : puppeteer.executablePath(),
-    });
+    // const browser = await puppeteer.launch({
+    //   headless: "new",
+    //   args: ["--disable-setuid-sandbox", "--no-sandbox", "--no-zygote"],
+    //   executablePath:
+    //     process.env.NODE_ENV === "production"
+    //       ? process.env.PUPPETEER_EXECUTABLE_PATH
+    //       : puppeteer.executablePath(),
+    // });
 
-    let page = await browser.newPage();
+    // let page = await browser.newPage();
     // await page.setRequestInterception(true);
     // page.on("request", (request) => {
     //   if (
@@ -22,60 +24,44 @@ const cnaScrap = async (id) => {
     //     request.abort();
     //   else request.continue();
     // });
-    await page.goto(`https://www.cna.com.tw/list/${id}.aspx`, {
-      waitUntil: "domcontentloaded",
-    });
+    const response = await axios.get(`https://www.cna.com.tw/list/${id}.aspx`);
+    const $ = cheerio.load(response.data);
+    // let count = 0;
+    // let maxCount = 2;
+    // if (id !== "aall") {
+    //   //點擊畫面中的按鈕，讓新聞可以繼續跑
+    //   while (count <= maxCount) {
+    //     await page.waitForTimeout(200);
+    //     await page.click("#SiteContent_uiViewMoreBtn_Style3");
+    //     count++;
+    //   }
+    // }
 
-    let count = 0;
-    let maxCount = 2;
-    if (id !== "aall") {
-      //點擊畫面中的按鈕，讓新聞可以繼續跑
-      while (count <= maxCount) {
-        await page.waitForTimeout(200);
-        await page.click("#SiteContent_uiViewMoreBtn_Style3");
-        count++;
-      }
-    }
+    let data = [];
 
-    const result = await page.evaluate(() => {
-      let data = [];
-
-      let newsItem = document.querySelectorAll(".mainList li");
-      newsItem.forEach((el, i) => {
-        let imgElement = newsItem[i]
-          ?.querySelector(".wrap img")
-          ?.getAttribute("src");
-        if (imgElement) {
-          data.push({
-            source: "cna",
-            title: newsItem[i].querySelector(".listInfo h2 span").textContent,
-            date: newsItem[i].querySelector(".listInfo div").textContent,
-            url: newsItem[i].querySelector("a").getAttribute("href"),
-            img:
-              newsItem[i]?.querySelector(".wrap img")?.getAttribute("src") ||
-              "",
-          });
-        } else {
-          data.push({
-            category: "cna",
-            title: newsItem[i].querySelector(".listInfo h2 span").textContent,
-            date: newsItem[i].querySelector(".listInfo div").textContent,
-            url: newsItem[i].querySelector("a").getAttribute("href"),
-          });
-        }
+    $(".mainList li").each((el, i) => {
+      data.push({
+        source: "cna",
+        title: $(i).find(".listInfo h2 span").text(),
+        // newsItem[i].querySelector(".listInfo h2 span").textContent,
+        date: $(i).find(".date").text(),
+        // newsItem[i].querySelector(".listInfo div").textContent,
+        url: $(i).find("a").attr("href"),
+        // newsItem[i].querySelector("a").getAttribute("href"),
+        img: $(i).find(".wrap img").attr("data-src") || "",
+        // newsItem[i]?.querySelector(".wrap img")?.getAttribute("src") || "",
       });
-
-      return data;
     });
-    await page.waitForFunction(
-      async (result) => {
-        return result && result.length >= 20;
-      },
-      {},
-      result
-    );
-    await browser.close();
-    return result;
+
+    // await page.waitForFunction(
+    //   async (result) => {
+    //     return result && result.length >= 20;
+    //   },
+    //   {},
+    //   result
+    // );
+    // await browser.close();
+    return data;
   } catch (e) {
     return e;
   }
