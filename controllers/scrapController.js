@@ -13,10 +13,15 @@ const handleScrapNews = async (req, res, category, news) => {
     return res.status(400).json({ status: "fail", msg: "無此標籤" });
   try {
     const data = await news(findResult);
+    let test;
+    if (data.length === 0) {
+      test = "空的";
+    }
     res.json({
       status: "success",
       length: data.length,
       data,
+      test,
     });
   } catch (err) {
     res.status(400).json({
